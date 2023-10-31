@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { cn } from '@/lib/utils'
 import { GeistSans } from 'geist/font'
 import type { Metadata } from 'next'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Header />
             {children}
+            <Toaster position='top-right'/>
           </ThemeProvider>
         </AuthProvider>
       </body>

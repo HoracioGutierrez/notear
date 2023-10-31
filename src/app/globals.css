@@ -1,7 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+.tiptap.ProseMirror > * {
+  all : revert;
+}
 
 @layer base {
   :root {
