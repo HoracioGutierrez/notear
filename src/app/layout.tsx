@@ -1,3 +1,4 @@
+import AuthProvider from '@/components/AuthProvider'
 import Header from '@/components/Header'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { cn } from '@/lib/utils'
@@ -17,11 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='h-full'>
-      <body className={cn(GeistSans.className,"h-full grid grid-rows-[min-content_1fr]")}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Header/>
-          {children}
-        </ThemeProvider>
+      <body className={cn(GeistSans.className, "h-full grid grid-rows-[min-content_1fr]")}>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Header />
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )
