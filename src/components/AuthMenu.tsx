@@ -28,7 +28,7 @@ export default function AuthMenu() {
         <DropdownMenu>
             <DropdownMenuTrigger className="rounded-full">
                 <Avatar>
-                    <AvatarImage src={data?.user?.image || "https://picsum.photos/seed/picsum/200/300"} alt="Profile picture" />
+                    <AvatarImage src={data?.user?.image as string} alt="Profile picture" />
                     <AvatarFallback asChild>
                         <Loader className="animate-spin bg-transparent" />
                     </AvatarFallback>

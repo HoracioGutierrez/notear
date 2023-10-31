@@ -21,7 +21,6 @@ export async function deleteNote (noteId: string) {
         return { error : false , result : noteCollection.deletedCount , message : "Nota eliminada exitosamente!" }
 
     } catch (error) {
-        console.log(error)
         return { error : true , result : {} , message : "Error al eliminar la nota!" }
     }
 }

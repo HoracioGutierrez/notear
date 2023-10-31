@@ -17,8 +17,6 @@ const TipTapEditor = ({ notes }: TipTapEditorProps) => {
     setNewNote(!newNote)
   }
 
-  console.log(notes)
-
   return (
     <Page title='Bienvenido!'>
       <Button onClick={handleClick}>{newNote ? "cancelar" : "nueva nota"}</Button>

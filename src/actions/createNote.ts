@@ -20,7 +20,6 @@ export async function createNote(note:Note){
         return { error : false , result : noteCollection.insertedId , message : "Nota creada exitosamente!" }
 
     } catch (error) {
-        console.log(error)
         return { error : true , result : {} , message : "Error al crear la nota!" }
     }
 }
