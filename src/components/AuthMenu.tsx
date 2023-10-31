@@ -29,9 +29,9 @@ export default function AuthMenu() {
             <DropdownMenuTrigger className="rounded-full">
                 <Avatar>
                     <AvatarImage src={data?.user?.image as string} alt="Profile picture" />
-                    <AvatarFallback asChild>
+                    {!data && <AvatarFallback asChild>
                         <Loader className="animate-spin bg-transparent" />
-                    </AvatarFallback>
+                    </AvatarFallback>}
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
