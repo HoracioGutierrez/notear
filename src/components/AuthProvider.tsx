@@ -1,5 +1,5 @@
 "use client"
-import { handler } from "@/app/api/auth/[...nextauth]/route"
+import { handler } from "@/lib/utils"
 import { SessionProvider } from "next-auth/react"
 
 type Props = {
