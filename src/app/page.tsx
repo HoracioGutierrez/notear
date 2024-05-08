@@ -1,24 +1,25 @@
 import { getUserNotes } from "@/actions/getUserNotes";
 import LandingContent from "@/components/LandingContent";
 import TipTapEditor from "@/components/TipTapEditor";
-import { getServerSession } from "next-auth/next";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export default async function Home() {
-
-  const session = await getServerSession()
-  const notes = await getUserNotes(session?.user?.email as string)
-  const mappedNotest:Note[] = notes.result.map((note:any) => {
+  const { isAuthenticated, getUser } = getKindeServerSession();
+  const user = await getUser();
+  const auth = await isAuthenticated();
+  const notes = await getUserNotes(user?.email as string);
+  const mappedNotest: Note[] = notes.result.map((note: any) => {
     return {
       _id: note._id,
       title: note.title,
       content: note.content,
-      userId: note.userId
-    }
-  })
+      userId: note.userId,
+    };
+  });
 
-  return (
-    <>
-      {session ? <TipTapEditor notes={mappedNotest} /> : <LandingContent/> }
-    </>
-  )
+  if (auth) {
+    return <TipTapEditor notes={mappedNotest} />;
+  } else {
+    return <LandingContent />;
+  }
 }

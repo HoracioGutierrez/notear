@@ -1,10 +1,10 @@
 "use client"
 
 import { createNote } from "@/actions/createNote"
-import { useSession } from "next-auth/react"
 import { useRef } from "react"
 import { toast } from "sonner"
 import { Button } from "./ui/button"
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 
 type Props = {
     toggleOpen: () => void
@@ -13,7 +13,7 @@ export default function NewNote({ toggleOpen }: Props) {
 
     const titleRef = useRef<HTMLHeadingElement>(null)
     const noteRef = useRef<HTMLParagraphElement>(null)
-    const { data } = useSession()
+    const { user , isAuthenticated } = useKindeBrowserClient()
 
     const handleSubmit = async () => {
         const titleContent = titleRef.current?.innerHTML.toString() as string
@@ -22,7 +22,7 @@ export default function NewNote({ toggleOpen }: Props) {
         const note: Note = {
             title: titleContent,
             content: noteContent,
-            userId : data?.user?.email as string
+            userId : /* data?. */user?.email as string
         }
 
         toast.loading("Creando nota...")
