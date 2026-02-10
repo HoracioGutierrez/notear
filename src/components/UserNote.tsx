@@ -1,10 +1,10 @@
 "use client"
 
 import { deleteNote } from '@/actions/deleteNote'
-import { cn } from '@/lib/utils'
-import { TrashIcon } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from './ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 
 type Props = {
     note: Note
@@ -18,27 +18,44 @@ export default function UserNote({ note }: Props) {
         setOpen(!open)
     }
 
-    const handleDelete = (e:any) => {
+    const handleDelete = (e: any) => {
         e.stopPropagation()
         deleteNote(note._id as string)
     }
 
-    return (
-        <article className={cn(
-            open ? "fixed inset-0" : "bg-primary p-2 max-h-48 rounded-lg"
-        )} onClick={!open ? handleClick : () => { }}>
-            <div onClick={open ? handleClick : () => { }} className={cn(open ? "absolute inset-0 bg-[rgba(0,0,0,0.5)]" : "")}></div>
-            <div className={cn(open ? "bg-primary p-2 inset-20 absolute rounded" : "", "flex flex-col gap-4")}>
-                <div className='space-y-4 grow'>
-                    <h2 className="text-2xl">{note.title}</h2>
-                    <p>{note.content}</p>
-                </div>
-                <div className='flex justify-end'>
-                    <Button size={"icon"} className='bg-red-500 hover:bg-accent-foreground' onClick={handleDelete}>
-                        <TrashIcon className='w-6 h-6'/>
-                    </Button>
+    if (open) {
+        return (
+            <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" onClick={handleClick}>
+                <div className="absolute inset-6 sm:inset-12 md:inset-20" onClick={(e) => e.stopPropagation()}>
+                    <Card className="h-full flex flex-col">
+                        <CardHeader>
+                            <CardTitle className="text-base font-semibold text-primary">{note.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-1 overflow-auto">
+                            <p>{note.content}</p>
+                        </CardContent>
+                        <CardFooter className="justify-end">
+                            <Button variant="ghost" size="icon" className="hover:text-destructive" onClick={handleDelete}>
+                                <Trash2 className='h-4 w-4' />
+                            </Button>
+                        </CardFooter>
+                    </Card>
                 </div>
             </div>
-        </article>
+        )
+    }
+
+    return (
+        <Card className="group cursor-pointer transition-colors hover:border-primary/30" onClick={handleClick}>
+            <CardHeader>
+                <CardTitle className="text-base font-semibold text-primary">{note.title}</CardTitle>
+                <CardDescription className="line-clamp-3 text-sm leading-relaxed">{note.content}</CardDescription>
+            </CardHeader>
+            <CardFooter className="justify-end">
+                <Button variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 hover:text-destructive" onClick={handleDelete}>
+                    <Trash2 className='h-4 w-4' />
+                </Button>
+            </CardFooter>
+        </Card>
     )
 }

@@ -4,6 +4,7 @@ import { createNote } from "@/actions/createNote"
 import { useRef } from "react"
 import { toast } from "sonner"
 import { Button } from "./ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 
 type Props = {
@@ -22,7 +23,7 @@ export default function NewNote({ toggleOpen }: Props) {
         const note: Note = {
             title: titleContent,
             content: noteContent,
-            userId : /* data?. */user?.email as string
+            userId : user?.email as string
         }
 
         toast.loading("Creando nota...")
@@ -37,19 +38,27 @@ export default function NewNote({ toggleOpen }: Props) {
     }
 
     return (
-        <div className="fixed grid place-items-center inset-0">
-            <div className="bg-[rgba(0,0,0,0.5)] absolute inset-0" onClick={toggleOpen}></div>
-            <div className="p-4 bg-primary rounded-lg inset-20 absolute flex flex-col">
-                <h1 className="text-2xl text-muted" contentEditable ref={titleRef}>Titulo de nota</h1>
-                <hr className="mb-4 " />
-                <div className="grow">
-                    <p contentEditable ref={noteRef}>Deje su nota aqui...</p>
-                </div>
-                <div className="flex justify-end">
-                    <Button onClick={toggleOpen} variant={"secondary"}>cerrar </Button>
-                    <Button onClick={handleSubmit} variant={"secondary"}>crear</Button>
-                </div>
-            </div>
+        <div className="fixed inset-0 z-50 grid place-items-center">
+            <div className="bg-black/50 backdrop-blur-sm absolute inset-0" onClick={toggleOpen}></div>
+            <Card className="absolute inset-6 sm:inset-12 md:inset-20 flex flex-col">
+                <CardHeader>
+                    <CardTitle
+                        className="text-base font-semibold text-primary outline-none"
+                        contentEditable
+                        ref={titleRef}
+                        suppressContentEditableWarning
+                    >
+                        Titulo de nota
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1">
+                    <p contentEditable ref={noteRef} className="outline-none" suppressContentEditableWarning>Deje su nota aqui...</p>
+                </CardContent>
+                <CardFooter className="justify-end gap-2">
+                    <Button onClick={toggleOpen} variant="outline" size="sm">Cerrar</Button>
+                    <Button onClick={handleSubmit} variant="default" size="sm">Crear</Button>
+                </CardFooter>
+            </Card>
         </div>
     )
 

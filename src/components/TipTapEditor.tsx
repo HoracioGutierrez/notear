@@ -1,4 +1,5 @@
 "use client"
+import { FileText, Plus } from 'lucide-react'
 import { useState } from 'react'
 import NewNote from './NewNote'
 import Page from './Page'
@@ -18,11 +19,22 @@ const TipTapEditor = ({ notes }: TipTapEditorProps) => {
   }
 
   return (
-    <Page title='Bienvenido!'>
-      <Button onClick={handleClick}>{newNote ? "cancelar" : "nueva nota"}</Button>
+    <Page noTitle>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold tracking-tight">Bienvenido!</h2>
+        <Button size="sm" onClick={handleClick}>
+          <Plus className="h-4 w-4 mr-2" />
+          {newNote ? "Cancelar" : "Nueva nota"}
+        </Button>
+      </div>
       {newNote && <NewNote toggleOpen={handleClick} />}
-      <section className='mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 xl:gap-8'>
-        {notes.length === 0 && <p>No hay notas guardadas aun!</p>}
+      <section className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {notes.length === 0 && (
+          <div className="col-span-full flex flex-col items-center justify-center py-16 text-muted-foreground">
+            <FileText className="h-12 w-12 mb-4" />
+            <p>No hay notas guardadas aun!</p>
+          </div>
+        )}
         {notes.map((note: Note) => {
           return (
             <UserNote key={note.id} note={note} />
