@@ -1,10 +1,19 @@
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { cn } from "@/lib/utils";
-import { GeistSans } from "geist/font";
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "Notear",
@@ -17,12 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className='h-full' suppressHydrationWarning>
+    <html lang='es' className='h-full' suppressHydrationWarning>
       <body
-        className={cn(
-          GeistSans.className,
-          "h-full grid grid-rows-[min-content_1fr]"
-        )}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans h-full grid grid-rows-[min-content_1fr]`}
       >
         <ThemeProvider
           attribute='class'
