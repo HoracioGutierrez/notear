@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import type { Metadata } from "next";
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang='es' className='h-full' suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans h-full grid grid-rows-[min-content_1fr]`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans h-full grid grid-rows-[min-content_1fr_min-content]`}
       >
         <ThemeProvider
           attribute='class'
@@ -38,6 +39,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Footer />
           <Toaster position='top-right' />
         </ThemeProvider>
       </body>
