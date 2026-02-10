@@ -10,7 +10,7 @@ interface PageProps {
 
 export default function Page({ children, noTitle = false, title = "New Page" , className }: PageProps) {
     return (
-        <main className={cn("container",className)}>
+        <main className={cn("max-w-5xl mx-auto px-4",className)}>
             {!noTitle && <PageTitle>{title}</PageTitle>}
             {children}
         </main>
